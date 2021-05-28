@@ -136,8 +136,9 @@ const guessCounter = function (guess) {
         remainingGuesses -= 1;
     };
     if (remainingGuesses === 0) {
-        message.innerText = `Bummer, you lost! The word was ${word}.`;
+        message.innerText = `Bummer, you lost! The word was "${word}".`;
         remainingGuessesField.innerText = "";
+        startOver();
     } else if (remainingGuesses === 1) {
         numRemainingGuesses.innerText = "1 guess";
     } else if (remainingGuesses > 1) {
@@ -150,5 +151,27 @@ const checkIfWinner = function () {
     if (wordInProgress.innerText === word.toUpperCase()) {
         message.classList.add("win");
         message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+        startOver();
     } 
 };
+
+const startOver = function () {
+    guessButton.classList.add("hide");
+    remainingGuessesField.classList.add("hide");
+    wordInProgress.classList.add("hide");
+    playAgain.classList.remove("hide");
+};
+
+playAgain.addEventListener("click", function () {
+    message.classList.remove("win");
+    message.innerText = "";
+    remainingGuesses = 8;
+    guessedLetters.length = 0;
+    guessedLetterField.innerText = "";
+    remainingGuessesField.classList.remove("hide");
+    numRemainingGuesses.innerText = "8 guesses";
+    guessButton.classList.remove("hide");
+    wordInProgress.classList.remove("hide");
+    playAgain.classList.add("hide");
+    getWord();
+});
