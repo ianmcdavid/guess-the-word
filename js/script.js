@@ -17,7 +17,7 @@ const playAgain = document.querySelector(".play-again");
 //The word to be guessed
 let word = "";
 //Array containing letters previously guessed
-const guessedLetters = [];
+let guessedLetters = [];
 //Number of remaining guesses
 let remainingGuesses = 8;
 //Function to fetch word list
@@ -137,7 +137,7 @@ const guessCounter = function (guess) {
     };
     if (remainingGuesses === 0) {
         message.innerText = `Bummer, you lost! The word was "${word}".`;
-        remainingGuessesField.innerText = "";
+        
         startOver();
     } else if (remainingGuesses === 1) {
         numRemainingGuesses.innerText = "1 guess";
@@ -166,12 +166,13 @@ playAgain.addEventListener("click", function () {
     message.classList.remove("win");
     message.innerText = "";
     remainingGuesses = 8;
-    guessedLetters.length = 0;
+    guessedLetters = [];
     guessedLetterField.innerText = "";
-    remainingGuessesField.classList.remove("hide");
     numRemainingGuesses.innerText = "8 guesses";
+    
+    getWord();
     guessButton.classList.remove("hide");
     wordInProgress.classList.remove("hide");
     playAgain.classList.add("hide");
-    getWord();
+    remainingGuessesField.classList.remove("hide");
 });
